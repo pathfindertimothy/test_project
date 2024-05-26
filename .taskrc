@@ -1,0 +1,3 @@
+data.location=.task
+confirmation=off
+verbose=affected,blank,context,edit,header,footnote,label,new-id,project,special,sync,recur
