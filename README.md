@@ -39,5 +39,12 @@
 - Boundary values should be tested
 - Test should be implemented in class for easy reuseability and sharing fixtures
 
-## Note
-- To add .github/workflows and run online
+## Note: GitHub Actions
+- A github action was set to run the tests in the pipeline automatically each time there is a push to the main branch
+- To run the tests using this action manually, navigate to the repository
+- Click on `Actions`at the top menu to navigate to the `All workflows` page
+- Click on any of the workflow
+- Click on `build`
+- Click on `Re-run all jobs` or `Re-run this job` button to open the run panel
+- Click on `Re-run jobs` to run the job
+- Then click on `build` to view job statuses
