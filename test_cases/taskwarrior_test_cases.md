@@ -8,4 +8,4 @@
 - As a user, I want to be able to add due date to my task
 - As a user, I want to be able to see a list of my task
 - As a user, I want to be able to mark done task
-- As a user, I want to be able to fetch my pending task 
+- As a user, I want to be able to fetch my pending task

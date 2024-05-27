@@ -6,6 +6,7 @@ load_dotenv()
 data_path = ".task/taskchampion.sqlite3"
 cmd3 = "task list"
 
+# - As a user, I want to be able to create task
 def create_tasks():
     print('------------------CREATED TASKS-----------------')
     test_plan_tasks=[ 
@@ -18,9 +19,14 @@ def create_tasks():
         "task add Test closure"
     ]
     
-    for x in test_plan_tasks:
-        os.system(x)
+    try: 
+        for x in test_plan_tasks:
+            os.system(x)
+    except:
+        print("Something went wrong")
+    
 
+# As a user, I want to be able to group task
 def group_task():
     print('-----------------GROUP THE TASKS----------------')
     group_1 = [
@@ -41,14 +47,23 @@ def group_task():
 
     group_total = group_1 + group_2 + group_3
 
-    for x in group_total:
-        os.system(x)
+    try: 
+        for x in group_total:
+            os.system(x)
+    except:
+        print("Something went wrong")
 
+# - As a user, I want to be able to priorities task
 def task_priority():
     print('----------------PRIORITISE TASK-----------------')
     task_priority = "task 1 modify priority:H"
-    os.system(task_priority)
+    
+    try:
+        os.system(task_priority)
+    except:
+        print("Something went wrong")
 
+# - As a user, I want to be able to add dependency from task to task
 def task_dependency():
     print('-------------------TASK DEPENDENCY--------------')
     dep_1 = [
@@ -56,9 +71,13 @@ def task_dependency():
         "task 6 modify depends:5"
     ]
 
-    for x in dep_1:
-        os.system(x)
+    try:
+        for x in dep_1:
+            os.system(x)
+    except:
+        print("Something went wrong")
 
+# - As a user, I want to be able to add due date to my task
 def task_delivery():
     print('-------------------TASK DELIVERY----------------')
     due_date = [
@@ -71,17 +90,31 @@ def task_delivery():
         "task 7 modify due:Friday",
     ]
 
-    for x in due_date:
-        os.system(x)
+    try:
+        for x in due_date:
+            os.system(x)
+    except:
+        print("Something went wrong")
 
+# - As a user, I want to be able to see a list of my task
 def list_task():
     print('-------------------LIST TASK--------------------')
-    os.system(cmd3)
+    
+    try:
+        os.system(cmd3)
+    except:
+        print("Something went wrong")
 
+# - As a user, I want to be able to see the number of my pending task
 def task_count():
     print('----------------COUNT PENDING TASK--------------')
-    os.system("task status:pending count")
 
+    try:
+        os.system("task status:pending count")
+    except:
+        print("Something went wrong")
+    
+# -  As a user, I want to be able to mark done task
 def task_done():
     print('-------------------TASK DONE--------------------')
     task_done = [
@@ -91,11 +124,14 @@ def task_done():
         "task 4 done"
     ]
     
-    for x in task_done:
-        os.system(x)
-    os.system("task 5 done",)
-    os.system("task 6 done",)
-    os.system("task 7 done",)
+    try:
+        for x in task_done:
+            os.system(x)
+        os.system("task 5 done",)
+        os.system("task 6 done",)
+        os.system("task 7 done",)
+    except:
+        print("Something went wrong")
 
 def print_list_task():
     list_task()

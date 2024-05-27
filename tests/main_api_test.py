@@ -1,92 +1,132 @@
-import requests
-import os, sys
+import sys
 sys.path.append("")
-from dotenv import load_dotenv
+
+from func_api.api import *
 from payload.payload import *
 
-load_dotenv()
+number_of_product = 2
+payload_desc = put_payload['description']
+payload_price = put_payload['price']
+new_product_title = new_product_payload['title']
+new_prodcut_cat = new_product_payload['category']
+updated_email = update_user_payload['email']
+updated_username = update_user_payload['username']
 
-# Add the url in the env file
-# create a data file for payload
-
-def get_single_product(num):
-    # As a user I should be able to fetch a single product successfully
-    url = 'https://fakestoreapi.com/products/' + str(num)
-    resp = requests.get(url)
-    resp_payload = resp.json()
+# - As a user I should be able to fetch a single product successfully
+def test_get_single_product():
+    resp = get_single_product()
     status = resp.status_code
-    print(resp_payload)
-    print("----------------------")
-    print(status)
-   
-    my_value = resp_payload['price']
-    print(my_value)
-    # assert the status code in the test file
-    # assert the price value in the test
-# get_single_product()
-
-def get_all_products():
-    # As a user I should be able to fetch all product successfully
-    url = 'https://fakestoreapi.com/products'
-    resp = requests.get(url)
     resp_payload = resp.json()
-    print(resp_payload)
-    # assert the 2 and the 19 object title and price
-# get_all_products()
+    price = resp_payload['price']
+    title = resp_payload['title']
 
-def get_prodcut_by_count(num):
-    # As a user I want to be able to get a specific number of products
-    # note: I need a randon number generator for the num values
-    url =  os.getenv('URL') + "?limit=" + str(num)
-    resp = requests.get(url)
+    assert status == 200
+    assert price == 109.95
+    assert title == 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops'
+    assert 'price' in resp_payload
+    assert 'title' in resp_payload
+
+# - As a user I should be able to fetch all product successfully
+def test_get_all_products():
+    resp = get_all_products()
+    status = resp.status_code
     resp_payload = resp.json()
-    print(resp_payload)
-    print(len(resp_payload))
+    cat_one = resp_payload[2]['category']
+    cat_two = resp_payload[19]['category']
 
-    # assert that the count of the product is correct
-    # assert status is correct
-#get_prodcut_by_count(2)
+    assert status == 200
+    assert cat_one == "men's clothing"
+    assert cat_two == "women's clothing"
 
-def get_all_categories():
-    # As a user, I want to be able to fetch all categories
-    url =  os.getenv('URL') + "/categories"
-    resp = requests.get(url)
+# - As a user I want to be able to get a specific number of products
+def test_get_prodcut_by_count():
+    resp = get_product_by_count(number_of_product)
+    status = resp.status_code
     resp_payload = resp.json()
-    print(resp_payload)
-    print(len(resp_payload))
-    # assert some of the category
-    # assert the total number of category is 4
-# get_all_categories()
+    item_length = len(resp_payload)
 
-def add_new_product():
-    # As a user, I want to be able to add a new product
-    url =  os.getenv('URL')
-    resp = requests.post(url, data=new_product_payload)
+    assert status == 200
+    assert item_length == number_of_product
+
+# - As a user, I want to be able to fetch all categories
+def test_get_all_categories():
+    resp = get_all_categories()
+    status = resp.status_code
     resp_payload = resp.json()
-    print(resp_payload)
-    print(len(resp_payload))
-    print(resp.status_code)
-    # assert the lenght of the dictionary
-    # assert some value in the response
-    # perform a get request to get the added product
-    # assert the status code
-# add_new_product()
+    item_one = resp_payload[0]
+    item_two = resp_payload[1]
 
-def update_product():
-    # As a user, I want to be able to update a product
-    url =  os.getenv('URL') + '/' + str(7)
-    resp = requests.put(url, data=put_payload)
+    assert status == 200
+    assert item_one == 'electronics'
+    assert item_two == 'jewelery'
+
+# - As a user, I want to be able to add a new product
+def test_add_new_product():
+    resp = add_new_product()
+    status = resp.status_code
     resp_payload = resp.json()
-    print(resp_payload)
-    print(len(resp_payload))
-    print(resp.status_code)
+    title = resp_payload['title']
+    category = resp_payload['category']
 
-update_product()
+    assert status == 200
+    assert title == new_product_title
+    assert category == new_prodcut_cat
 
-# add negative test such as adding a product with wrong category code or some wrong key
-# add a negative test by passing wrong key so see how the system behave
+# - As a user, I want to be able to update a product
+def test_update_product():
+    resp = update_product()
+    status = resp.status_code
+    resp_payload = resp.json()
+    price = resp_payload['price']
+    disc = resp_payload['description']
 
+    assert status == 200
+    assert 'description' in resp_payload
+    assert price == str(payload_price)
+    assert disc == payload_desc
 
+# - As a user, I want to be able to get product in certain category
+def test_get_product_by_catetory():
+    resp = get_product_by_catetory()
+    status = resp.status_code
+    resp_payload = resp.json()
+    cat_one = resp_payload[0]['category']
+    cat_two = resp_payload[1]['category']
+    rate = resp_payload[0]['rating']['rate']
 
+    assert status == 200
+    assert cat_one == 'jewelery'
+    assert cat_two == 'jewelery'
+    assert rate == 4.6
 
+# As an admin, I should be able to create a new user
+# Note: endpoint returned only an id in the payload 
+def test_add_user():
+    resp = add_user()
+    status = resp.status_code
+    resp_payload = resp.json()
 
+    assert status == 200
+    assert 'id' in resp_payload
+
+# As an admin, I should be able to update a user
+def test_update_user():
+    resp = update_user()
+    status = resp.status_code
+    resp_payload = resp.json()
+    email = resp_payload['email']
+    username = resp_payload['username']
+
+    assert status == 200
+    assert email == updated_email
+    assert username == updated_username
+    assert 'email' in resp_payload
+
+# As a user, I should be able to login successfully
+def test_user_login():
+    resp = user_login()
+    status = resp.status_code
+    resp_payload = resp.json()
+
+    assert status == 200
+    assert 'token' in resp_payload
