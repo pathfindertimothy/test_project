@@ -48,9 +48,17 @@
     - `And`: I have the required product ID parameter
     - `When`: The request is performed
     - `Then`: The response message should contain a message that the product is deleted successfull
-- As an an admin, I want to be able to create a user
-- As a user, if I login with the wrong credentials, I should get an error
-- As a user, I want to be able to test product filters
+
+- Some other test scenarios
+    - As an an admin, I want to be able to create a user
+    - As a user, if I login with the wrong credentials, I should get an error
+    - As a user, I want to be able to test product filters
+    - As an admin, I want to be able to delete a user
+    - As a admin, I want to be able to sort and filter users
+    - As a user, I want to be able to add a new cart
+    - As a user, I want to be able to delete a cart
+    - As a user, I want to be able to sort carts
+    - As a user, I want to be able to get carts in a specific date range
 
 # Recommendation
 - Security testing sholud be performed to test the security of the endpoints
@@ -58,5 +66,7 @@
     - load testing
     - reliability testing
 - Password should be stored in env file during create, update and login user request
+- All API endpoints should be tested
+- See README file for listed recommendation
 
     
