@@ -38,3 +38,6 @@
 - Validation of response data structure should be performed
 - Boundary values should be tested
 - Test should be implemented in class for easy reuseability and sharing fixtures
+
+## Note
+- To add .github/workflows
