@@ -40,4 +40,4 @@
 - Test should be implemented in class for easy reuseability and sharing fixtures
 
 ## Note
-- To add .github/workflows
+- To add .github/workflows and run online
