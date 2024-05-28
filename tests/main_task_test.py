@@ -26,7 +26,7 @@ def test_count_my_task():
     task_count()
 
 def test_my_done_task():
-    task_done
+    task_done()
 
 def test_print_list():
     print_list_task()
